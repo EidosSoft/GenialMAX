@@ -1,0 +1,49 @@
+// robot.gmax - программа для складского робота MAX
+
+// Подключаем библиотеки
+use motion from local:motion
+use vision from local:vision
+use arm from local:arm
+
+// Переменные
+let position = 0
+let object_detected = false
+
+// Основной режим
+mode warehouse
+    // Движение по складу
+    move forward 500 mm speed 60
+    
+    // Поиск объектов
+    read infrared pin 2
+    if value > 50:
+        object_detected = true
+        call vision.detect_object(0)
+        
+        if result == "cube":
+            call arm.pick_and_place(100, 0, 50)
+            say("Куб перемещен")
+        else:
+            move forward 200 mm
+            
+    // Обход препятствий
+    read ultrasonic pin 1
+    if value < 20:
+        rotate left 90 deg speed 40
+        move forward 300 mm
+        rotate right 90 deg
+        
+    // Патрулирование
+    if position > 1000:
+        call motion.dance(happy)
+        position = 0
+    else:
+        position = position + 100
+
+// Режим зарядки
+mode charging
+    move back 100 mm
+    grip open
+    say("Подключение к зарядной станции")
+    wait(2)
+    say("Зарядка начата")
