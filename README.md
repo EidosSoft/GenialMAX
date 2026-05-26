@@ -1,5 +1,7 @@
 # 🤖 Genial MAX - Язык программирования для роботов
 
+В разработке 
+
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/EidosSoft/genial-max)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.8+-yellow.svg)](https://python.org)
